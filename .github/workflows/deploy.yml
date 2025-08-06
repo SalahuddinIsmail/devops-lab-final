@@ -1,0 +1,32 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+    - name: Deploy app using SSH
+      uses: appleboy/ssh-action@v1.7.4
+      with:
+        host: ${{ secrets.VM_IP }}
+        username: ${{ secrets.VM_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          cd ~/devops-lab-final/app
+          docker-compose pull
+          docker-compose up -d
+
