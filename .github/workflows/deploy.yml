@@ -20,7 +20,7 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
 
     - name: Deploy app using SSH
-      uses: appleboy/ssh-action@v1.7.4
+      uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.VM_IP }}
         username: ${{ secrets.VM_USER }}
