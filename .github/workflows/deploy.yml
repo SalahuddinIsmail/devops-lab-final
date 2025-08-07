@@ -26,7 +26,7 @@ jobs:
         username: ${{ secrets.VM_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          cd ~/devops-lab-final/app
+          cd /home/azureuser/devops-lab-final/app
           docker-compose pull
           docker-compose up -d
 
